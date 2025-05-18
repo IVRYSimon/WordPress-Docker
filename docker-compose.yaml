@@ -99,10 +99,12 @@ services:
       retries: 5
 
   cron:
-    image: wordpress:cli-2.8-alpine
+    image: wpcli/wp-cli:2.8-php8.2-alpine
     container_name: cron
+    env_file:
+      - .env
     volumes:
-      - ./wordpress:/var/www/html:ro
+      - ./wordpress:/var/www/html
     entrypoint: ["/bin/sh", "-c", "while :; do wp cron event run --due-now --path=/var/www/html --allow-root; sleep 60; done"]
     depends_on:
       - wordpress
