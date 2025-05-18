@@ -66,7 +66,7 @@ services:
     container_name: mariadb
     volumes:
       - db_data:/var/lib/mysql
-      - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
     env_file:
       - .env
     environment:
