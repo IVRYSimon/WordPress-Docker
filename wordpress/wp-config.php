@@ -14,3 +14,14 @@ if ( getenv('REDIS_PASSWORD') ) {
     define('WP_REDIS_PASSWORD', getenv('REDIS_PASSWORD'));
 }
 define('WP_CACHE', true);
+
+// Additional caching and performance-related configurations
+define('WP_CACHE_KEY_SALT', 'your_unique_key_salt');
+define('WP_REDIS_MAXTTL', 3600);
+define('WP_REDIS_DATABASE', 0);
+define('WP_REDIS_MAX_RETRIES', 3);
+define('WP_REDIS_BACKOFF', 'exponential');
+define('WP_REDIS_GRACEFUL', true);
+define('WP_REDIS_GLOBAL_GROUPS', ['users', 'userlogins']);
+define('WP_REDIS_IGNORED_GROUPS', ['counts', 'plugins']);
+define('WP_REDIS_DISABLED', false);
