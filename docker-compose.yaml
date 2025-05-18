@@ -37,8 +37,7 @@ services:
       - "443:443"
     volumes:
       - ./wordpress:/var/www/html:ro
-      - ./nginx:/etc/nginx:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx:/etc/nginx
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
     depends_on:
