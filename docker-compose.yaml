@@ -44,8 +44,10 @@ services:
     entrypoint: ["/bin/sh", "-c", "envsubst < /etc/nginx/templates/wp.conf.template > /etc/nginx/conf.d/wp.conf && exec nginx -g 'daemon off;'"]
     depends_on:
       - wordpress
-    networks:
-      - wpnet
+    env_file:
+      - .env
+    environment:
+      - DOMAIN=${DOMAIN}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
