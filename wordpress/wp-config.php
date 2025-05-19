@@ -8,20 +8,17 @@ define('DISALLOW_FILE_EDIT', true);
 define('DISABLE_WP_CRON', true); // besser via externem Cronjob lösen
 
 // Redis aktivieren
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
-if ( getenv('REDIS_PASSWORD') ) {
-    define('WP_REDIS_PASSWORD', getenv('REDIS_PASSWORD'));
-}
-define('WP_CACHE', true);
-
-// Additional caching and performance-related configurations
-define('WP_CACHE_KEY_SALT', 'your_unique_key_salt');
-define('WP_REDIS_MAXTTL', 3600);
-define('WP_REDIS_DATABASE', 0);
-define('WP_REDIS_MAX_RETRIES', 3);
-define('WP_REDIS_BACKOFF', 'exponential');
-define('WP_REDIS_GRACEFUL', true);
-define('WP_REDIS_GLOBAL_GROUPS', ['users', 'userlogins']);
-define('WP_REDIS_IGNORED_GROUPS', ['counts', 'plugins']);
+define('WP_REDIS_CONFIG', [
+    'host'          => 'redis',
+    'port'          => 6379,
+    'database'      => 0,
+    'timeout'       => 1.0,
+    'read_timeout'  => 1.0,
+    'compression'   => 'zstd',
+    'serializer'    => 'igbinary',
+    'async_flush'   => true,
+    'split_alloptions' => true,
+    'prefetch'      => true,
+    'debug'         => false,
+]);
 define('WP_REDIS_DISABLED', false);
