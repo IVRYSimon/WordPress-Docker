@@ -7,6 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - wordpress_data:/var/www/html
       - ./wordpress/wp-content/uploads:/var/www/html/wp-content/uploads
       - ./php/conf.d:/usr/local/etc/php/conf.d:ro
     env_file:
@@ -35,7 +36,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./wordpress:/var/www/html:ro
+      - wordpress_data:/var/www/html:ro
       - ./nginx/templates:/etc/nginx/templates:ro
       - ./nginx/conf.d:/etc/nginx/conf.d
       - certbot_conf:/etc/letsencrypt
@@ -120,6 +121,7 @@ services:
       - wpnet
 
 volumes:
+  wordpress_data:
   db_data:
   redis_data:
   certbot_conf:
