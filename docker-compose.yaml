@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./wordpress:/var/www/html:cached
+      - ./wordpress/wp-content/uploads:/var/www/html/wp-content/uploads
       - ./php/conf.d:/usr/local/etc/php/conf.d:ro
     env_file:
       - .env
