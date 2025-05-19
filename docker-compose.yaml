@@ -48,6 +48,7 @@ services:
       - .env
     environment:
       - DOMAIN=${DOMAIN}
+      - ENABLE_SSL=${ENABLE_SSL}
     networks:
       - wpnet
     healthcheck:
