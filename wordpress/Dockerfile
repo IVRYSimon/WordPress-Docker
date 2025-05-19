@@ -1,7 +1,6 @@
-# ./wordpress/Dockerfile
 FROM wordpress:php8.2-fpm
 
-# Systempakete installieren + Redis-Extensions via PECL
+# Systempakete installieren
 RUN apt-get update && apt-get install -y \
     unzip \
     libzstd-dev \
@@ -9,8 +8,10 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libssl-dev \
     git \
-    && pecl install redis igbinary zstd \
-    && docker-php-ext-enable redis igbinary zstd \
+    && pecl install igbinary \
+    && pecl install zstd \
+    && pecl install redis \
+    && docker-php-ext-enable igbinary zstd redis \
     && rm -rf /var/lib/apt/lists/*
 
 # Object Cache Pro Plugin hinzufügen
