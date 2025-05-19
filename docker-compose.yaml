@@ -2,14 +2,13 @@ version: '3.8'
 
 services:
   wordpress:
-    image: wordpress:php8.2-fpm
+    build: ./wordpress
     container_name: wordpress
     ports:
       - "8080:80"
     volumes:
       - ./wordpress:/var/www/html:cached
       - ./php/conf.d:/usr/local/etc/php/conf.d:ro
-      - ./wordpress/object-cache.php:/var/www/html/wp-content/object-cache.php:ro
     env_file:
       - .env
     environment:
