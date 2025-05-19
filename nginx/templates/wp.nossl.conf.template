@@ -1,0 +1,42 @@
+server {
+    listen 80;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    root /var/www/html;
+    index index.php index.html;
+
+    # Cache static files
+    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|webp)$ {
+        expires 30d;
+        add_header Cache-Control "public, must-revalidate";
+        try_files $uri $uri/ =404;
+    }
+
+    # HTML Cache-Control
+    location / {
+        add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    # PHP-FPM handling with FastCGI Cache
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;
+
+        # FastCGI Cache settings
+        fastcgi_cache WORDPRESS;
+        fastcgi_cache_valid 200 302 60m;
+        fastcgi_cache_valid 404      1m;
+        add_header X-Cache $upstream_cache_status always;
+    }
+
+    # Deny access to hidden and sensitive files
+    location ~ /\.(?!well-known) {
+        deny all;
+    }
+    location ~* wp-config\.php {
+        deny all;
+    }
+}
